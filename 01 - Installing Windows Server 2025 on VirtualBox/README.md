@@ -1,64 +1,56 @@
-# Windows Server 2025 Homelab: VirtualBox Setup Guide
+# My Windows Server 2025 Homelab: Installation & Base Setup (VMware Edition)
 
-Welcome to my Windows Server 2025 Homelab repository! This project documents how I built and configured a Windows Server 2025 Virtual Machine (VM) from scratch using **Oracle VirtualBox**. This deployment serves as the core foundational layer for my enterprise environment testing.
+This project documents how I built and configured a Windows Server 2025 Virtual Machine (VM) from scratch using **VMware Workstation Pro**. This setup serves as the foundation for enterprise networking and Active Directory testing, covering everything from software procurement to initial system configuration.
 
 ---
 
 ## 🛠️ Step 1: Image & Software Acquisition
 
-To get started, I needed to gather the required installation media:
-1. **Windows Server 2025 ISO:** I navigated to the **Microsoft Evaluation Center** page, registered for the free trial, and downloaded the **ISO 64-bit edition** in English.
-2. **Hypervisor:** I downloaded the official **Oracle VirtualBox** installer directly from their download page. I prefer VirtualBox for this because it doesn't require creating an account to download the platform packages.
+1.  **Windows Server 2025 ISO:** I downloaded the official **64-bit English Evaluation ISO** from the Microsoft Evaluation Center.
+2.  **VMware Workstation Pro:** I downloaded the personal-use version of VMware Workstation Pro from the Broadcom portal.
 
-<img src="https://i.imgur.com/4Z3BmfI.png"/>
+<img src="https://i.imgur.com/wzrOTZT.png"/>
+<img src="https://i.imgur.com/YIEKbuj.png"/>
 
 ---
 
-## 💻 Step 2: Virtual Machine Provisioning
+## 💻 Step 2: Virtual Machine Provisioning in VMware
 
-I completed the following configuration steps inside VirtualBox to provision a lean, optimized home lab environment:
+I created a new VM in VMware Workstation Pro:
+1.  Selected **Typical (recommended)** setup.
+2.  Selected **"I will install the operating system later"** to bypass Easy Install issues.
+3.  Set Guest OS to **Microsoft Windows** > **Windows Server 2025**.
+4.  Allocated **40 GB** of virtual storage space.
+5.  Under **Customize Hardware**, pointed the CD/DVD drive to the downloaded ISO file.
 
-1. Clicked **New** on the top menu to create a brand new virtual machine.
-2. Named the VM `Windows Server 2025`.
-3. Linked my downloaded ISO file directly inside the **ISO Image** field.
-4. Checked the box to **skip unattended installation** to ensure I could manually configure the operating system options.
-5. Selected **Windows Server 2025 (64-bit)** as the OS version.
-6. Allocated **40 GB** of virtual storage space to keep my physical host machine's drive usage low.
-
-<img src="https://i.imgur.com/wA9iJCf.png"/>
+<img src="https://i.imgur.com/AvWcgA1.png"/>
 
 ---
 
 ## 💿 Step 3: Operating System Installation
 
-1. Launched the new VM by right-clicking it and selecting **Start > Normal Start** (with GUI).
-2. Selected my preferred language settings and proceeded through the initial steps.
-3. **Critical Choice:** I explicitly chose the **Desktop Experience** layout. Selecting standard evaluation drops you straight into a command prompt environment with no graphical interface, so this is essential to get the GUI.
-4. Accepted the software terms, skipped custom disk partitioning, and initiated the Windows installation.
-5. Set up a secure local **Administrator account password** to complete the final setup phase.
+1.  Powered on the VM and pressed a key to boot from the ISO.
+2.  Selected the **Desktop Experience** version to ensure a graphical interface.
+3.  Installed the OS on the 40GB virtual disk.
+4.  Set a strong local **Administrator** password.
+
+<img src="https://i.imgur.com/Xp9M5wP.png"/>
 
 ---
 
-## 🔓 Step 4: Console Access in VirtualBox
+## 🚀 Step 4: Installing VMware Tools (Optimized Drivers)
 
-Because pressing `Ctrl + Alt + Del` on my physical keyboard triggers my host machine instead of the virtual machine, I use VirtualBox's internal commands to log in:
-* **Option A (Menu):** I click **Input > Keyboard > Insert Ctrl-Alt-Del** from the top menu bar.
-* **Option B (Hotkey):** I press the **Right Ctrl Key + Delete** combination on my keyboard.
+1.  Inside the running VM, selected **VM > Install VMware Tools** from the VMware menu.
+2.  Ran `setup64.exe` inside the virtual DVD drive to install drivers, enabling proper display resolution.
+3.  Rebooted the system.
 
 ---
 
 ## ⚙️ Step 5: Post-Installation Hostname Configuration
 
-Windows assigns a completely random, generic hostname upon installation that is difficult to remember. As an absolute best practice, I customize my server identity **before** promoting it to a Domain Controller or installing Active Directory roles. Changing a computer name *after* it becomes a live domain controller is much more complex and unsafe.
+To prepare for Active Directory, I renamed the machine to a functional name:
+1.  Accessed **System Properties** to rename the PC (e.g., to `fileserver01`).
+2.  Rebooted and verified the change by running `hostname` in the Command Prompt.
 
-1. Opened **File Explorer**, right-clicked **This PC**, and opened **Properties**.
-2. Clicked on **Rename this PC**.
-3. Changed the computer name to a functional, easily identifiable name: `fileserver01`.
-4. Kept it under a default Workgroup for now and clicked **Next**.
-5. Promptly initiated a full machine reboot to apply the new name settings.
+<img src="https://i.imgur.com/ieOfBMl.png"/>
 
-### System Verification
-Once the server restarted, I verified the server configuration by opening the Command Prompt (`cmd`) and running:
-```cmd
-hostname
-```
