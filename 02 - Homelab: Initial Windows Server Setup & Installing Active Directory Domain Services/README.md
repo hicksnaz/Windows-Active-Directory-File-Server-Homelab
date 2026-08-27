@@ -14,15 +14,15 @@ Before rushing in to install Active Directory, I needed to make sure the server 
 3. Saw a whole list of updates waiting for me, so I clicked **Install all**. 
 4. I let it do its thing, grab all the security patches, and do a quick reboot.
 
-<img src="https://i.imgur.com/WSNif6W.png"/>
+<img src="https://i.imgur.com/4z4afVQ.png"/>
 
 ### 2. Turning on Remote Management
 In the real world, sysadmins don't sit in front of the actual server screen; they log in remotely. I wanted my lab to copy real life.
 1. I opened up the **Server Manager** app.
-2. Clicked on **Local Server** on the left side menu.
+2. Clicked on **Local Server** on the left-side menu.
 3. Looked for **Remote Management** and made sure it said `Enabled`. If yours is off, just click it, check the box to allow it, and save.
 
-<img src="https://i.imgur.com/GpXuG5Y.png"/>
+<img src="https://i.imgur.com/tDB5WS0.png"/>
 
 ---
 
@@ -36,13 +36,13 @@ Now that the server is clean and updated, it's time to install the Active Direct
 4. Scroll down a tiny bit until you see **Active Directory Domain Services** and check that box.
 5. A pop-up wizard will appear asking to add some required management tools. I just clicked **Add Features** to approve it.
 
-<img src="https://i.imgur.com/noHwgtc.png"/>
+<img src="https://i.imgur.com/8D78Kwh.png"/>
 
 6. I clicked **Next** through the rest of the generic menus until I reached the final review page.
 7. Clicked **Install** and waited for the progress bar to fill up.
 8. **Don't close the window yet!** Once it finishes, we have to do one more thing right from this screen to bring it to life.
 
-<img src="https://i.imgur.com/qiOCZfs.png"/>
+<img src="https://i.imgur.com/qH29gvh.png"/>
 
 ---
 
@@ -72,10 +72,10 @@ When the virtual machine boots back up, the login screen looks completely differ
 
 1. I sent the `Ctrl + Alt + Del` command through VirtualBox (**Input > Keyboard > Insert Ctrl-Alt-Del**).
 2. Looked at the username line and confirmed it changed to say `HOMELAB\Administrator`. 
-3. Typed in my main admin password and hit enter.
+3. Typed in my main admin password and hit Enter.
 
 ### Where did the tools go?
-Because Windows Server 2025 has a slightly updated look, finding our active directory management shortcuts can be a little confusing at first:
+Because Windows Server 2025 has a slightly updated look, finding our Active Directory management shortcuts can be a little confusing at first:
 
 1. Click the **Start Menu** and choose **All** apps.
 2. Scroll all the way down to the bottom and click on **Windows Tools**.
@@ -85,5 +85,5 @@ The two big ones I checked to confirm everything worked perfectly are:
 * **Active Directory Users and Computers** (Where I'll make users later)
 * **Group Policy Management** (Where I can set rules for computers)
 
-<img src="https://i.imgur.com/FCOTE6R.png"/>
+<img src="https://i.imgur.com/yhKgVMT.png"/>
 
